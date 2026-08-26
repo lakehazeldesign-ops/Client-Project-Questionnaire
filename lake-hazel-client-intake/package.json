@@ -1,0 +1,6 @@
+{
+  "name": "lake-hazel-client-intake",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module"
+}
