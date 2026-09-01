@@ -1,110 +1,921 @@
 <div id="lhq" class="lhq-wrap">
 <style>
 #lhq{--hazel:#253439;--camel:#B29E84;--paper:#FFFFF9;--ink:#000;max-width:920px;margin:0 auto;font-family:Jost,Arial,sans-serif;color:var(--ink)}
-#lhq *{box-sizing:border-box}#lhq .shell{background:var(--paper);border:1px solid rgba(37,52,57,.14);padding:clamp(24px,5vw,56px);box-shadow:0 18px 50px rgba(0,0,0,.06)}
-#lhq h1,#lhq h2{font-family:"Cormorant Garamond",Georgia,serif;color:var(--hazel);font-weight:500;letter-spacing:-.02em;margin:0}#lhq h1{font-size:clamp(44px,7vw,72px);line-height:.95;margin-bottom:18px}#lhq h2{font-size:clamp(32px,5vw,50px);line-height:1.05;margin-bottom:18px}
-#lhq .eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--camel);margin-bottom:14px}#lhq .intro,#lhq .helper{color:#50595b;line-height:1.7}#lhq .intro{font-size:17px;max-width:720px;margin-bottom:34px}#lhq .helper{font-size:14px;margin:8px 0 18px}
-#lhq .progress-wrap{display:flex;align-items:center;gap:14px;margin:0 0 40px}#lhq .progress{height:4px;background:#e5dfd6;flex:1;overflow:hidden}#lhq .progress span{display:block;height:100%;background:var(--camel);transition:width .25s ease}#lhq .count{font-size:12px;letter-spacing:.12em;color:#6e7475;white-space:nowrap}
-#lhq .q{display:none;min-height:430px}#lhq .q.active{display:block}#lhq .answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
-#lhq .choice{display:flex;align-items:flex-start;gap:12px;padding:15px 16px;border:1px solid #d8d2c9;background:#fff;cursor:pointer;min-height:56px;transition:.15s ease;font-size:15px;line-height:1.35}#lhq .choice:hover{border-color:var(--camel);transform:translateY(-1px)}#lhq .choice input{margin-top:3px;accent-color:var(--hazel)}#lhq .choice.selected{border-color:var(--hazel);box-shadow:0 0 0 1px var(--hazel)}
-#lhq input[type=text],#lhq input[type=email],#lhq input[type=tel],#lhq input[type=url],#lhq input[type=date],#lhq textarea,#lhq select{width:100%;border:1px solid #cfc9bf;background:#fff;padding:15px 16px;font:inherit;color:#111;outline:none;border-radius:0}#lhq textarea{min-height:145px;resize:vertical}#lhq input:focus,#lhq textarea:focus,#lhq select:focus{border-color:var(--camel);box-shadow:0 0 0 2px rgba(178,158,132,.17)}
-#lhq .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}#lhq .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}#lhq .field{margin-bottom:16px}#lhq .field>label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--hazel);margin-bottom:7px}
-#lhq .subhead{font-family:"Cormorant Garamond",Georgia,serif;color:var(--hazel);font-size:25px;margin:25px 0 8px}#lhq .upload{border:1px dashed var(--camel);background:#fff;padding:28px;text-align:center}#lhq .upload input{max-width:100%}#lhq .filelist{font-size:13px;line-height:1.5;color:#626a6c;margin-top:10px}
-#lhq .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid #ddd6cc}#lhq button{border:0;padding:14px 24px;font:700 12px Jost,Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;cursor:pointer}#lhq .primary{background:var(--hazel);color:#fff}#lhq .secondary{background:transparent;color:var(--hazel);border:1px solid var(--hazel)}#lhq .hidden{display:none!important}
-#lhq .status{display:none;margin-top:20px;padding:16px;font-weight:600;line-height:1.5}#lhq .status.ok{display:block;background:#edf3ef;color:#1f4b35}#lhq .status.err{display:block;background:#f8eeee;color:#7c2929}#lhq .required-note{font-size:12px;color:#777;margin-top:10px}
-@media(max-width:700px){#lhq .answers,#lhq .grid,#lhq .grid3{grid-template-columns:1fr}#lhq .shell{padding:26px 18px}#lhq .q{min-height:0}}
+#lhq *{box-sizing:border-box}
+#lhq .shell{background:var(--paper);border:1px solid rgba(37,52,57,.14);padding:clamp(24px,5vw,56px);box-shadow:0 18px 50px rgba(0,0,0,.06)}
+#lhq h1,#lhq h2{font-family:"Cormorant Garamond",Georgia,serif;color:var(--hazel);font-weight:500;letter-spacing:-.02em;margin:0}
+#lhq h1{font-size:clamp(44px,7vw,72px);line-height:.95;margin-bottom:18px}
+#lhq h2{font-size:clamp(32px,5vw,50px);line-height:1.05;margin-bottom:18px}
+#lhq .eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--camel);margin-bottom:14px}
+#lhq .intro,#lhq .helper{color:#50595b;line-height:1.7}
+#lhq .intro{font-size:17px;max-width:720px;margin-bottom:34px}
+#lhq .helper{font-size:14px;margin:8px 0 18px}
+#lhq .progress-wrap{display:flex;align-items:center;gap:14px;margin:0 0 40px}
+#lhq .progress{height:4px;background:#e5dfd6;flex:1;overflow:hidden}
+#lhq .progress span{display:block;height:100%;background:var(--camel);transition:width .25s ease}
+#lhq .count{font-size:12px;letter-spacing:.12em;color:#6e7475;white-space:nowrap}
+#lhq .q{display:none;min-height:430px}
+#lhq .q.active{display:block}
+#lhq .answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+#lhq .choice{display:flex;align-items:flex-start;gap:12px;padding:15px 16px;border:1px solid #d8d2c9;background:#fff;cursor:pointer;min-height:56px;transition:.15s ease;font-size:15px;line-height:1.35}
+#lhq .choice:hover{border-color:var(--camel);transform:translateY(-1px)}
+#lhq .choice input{margin-top:3px;accent-color:var(--hazel)}
+#lhq .choice.selected{border-color:var(--hazel);box-shadow:0 0 0 1px var(--hazel)}
+#lhq input[type=text],#lhq input[type=email],#lhq input[type=tel],#lhq input[type=url],#lhq input[type=date],#lhq textarea,#lhq select{width:100%;border:1px solid #cfc9bf;background:#fff;padding:15px 16px;font:inherit;color:#111;outline:none;border-radius:0}
+#lhq textarea{min-height:145px;resize:vertical}
+#lhq input:focus,#lhq textarea:focus,#lhq select:focus{border-color:var(--camel);box-shadow:0 0 0 2px rgba(178,158,132,.17)}
+#lhq .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#lhq .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+#lhq .field{margin-bottom:16px}
+#lhq .field>label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--hazel);margin-bottom:7px}
+#lhq .subhead{font-family:"Cormorant Garamond",Georgia,serif;color:var(--hazel);font-size:25px;margin:25px 0 8px}
+#lhq .upload{border:1px dashed var(--camel);background:#fff;padding:28px;text-align:center}
+#lhq .upload input{max-width:100%}
+#lhq .filelist{font-size:13px;line-height:1.5;color:#626a6c;margin-top:10px}
+#lhq .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid #ddd6cc}
+#lhq button{border:0;padding:14px 24px;font:700 12px Jost,Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;cursor:pointer}
+#lhq .primary{background:var(--hazel);color:#fff}
+#lhq .secondary{background:transparent;color:var(--hazel);border:1px solid var(--hazel)}
+#lhq .hidden{display:none!important}
+#lhq .status{display:none;margin-top:20px;padding:16px;font-weight:600;line-height:1.5}
+#lhq .status.ok{display:block;background:#edf3ef;color:#1f4b35}
+#lhq .status.err{display:block;background:#f8eeee;color:#7c2929}
+#lhq .required-note{font-size:12px;color:#777;margin-top:10px}
+@media(max-width:700px){
+  #lhq .answers,#lhq .grid,#lhq .grid3{grid-template-columns:1fr}
+  #lhq .shell{padding:26px 18px}
+  #lhq .q{min-height:0}
+}
 </style>
+
 <div class="shell">
   <div class="eyebrow">Lake Hazel Design</div>
   <h1>Client Project Questionnaire</h1>
-  <p class="intro"><strong>Tell us about your project.</strong><br>We want to understand your home, your goals, your style, and how you want the finished space to feel. This questionnaire helps our design team prepare for your project and recommend the right level of service.</p>
-  <div class="progress-wrap"><div class="progress"><span id="lhqProgress"></span></div><div class="count" id="lhqCount"></div></div>
+
+  <p class="intro">
+    <strong>Tell us about your project.</strong><br>
+    We want to understand your home, your goals, your style, and how you want the finished space to feel. This questionnaire helps our design team prepare for your project and recommend the right level of service.
+  </p>
+
+  <div class="progress-wrap">
+    <div class="progress"><span id="lhqProgress"></span></div>
+    <div class="count" id="lhqCount"></div>
+  </div>
 
   <form id="lhqForm" novalidate>
     <section class="q active">
-      <div class="eyebrow">Client Information</div><h2>First, tell us a little about you.</h2>
-      <div class="grid"><div class="field"><label>First Name *</label><input name="firstName" required type="text"></div><div class="field"><label>Last Name *</label><input name="lastName" required type="text"></div><div class="field"><label>Email *</label><input name="email" required type="email"></div><div class="field"><label>Phone Number *</label><input name="phone" required type="tel"></div></div>
-      <div class="field"><label>Project Address *</label><input name="address" required type="text"></div>
-      <div class="grid3"><div class="field"><label>City</label><input name="city" type="text"></div><div class="field"><label>State</label><input name="state" type="text"></div><div class="field"><label>ZIP Code</label><input name="zip" type="text"></div></div>
-      <div class="subhead">How should we reach you?</div><div class="answers" data-group="preferredCommunication"></div>
-      <div class="subhead">How did you hear about Lake Hazel?</div><div class="answers" data-group="leadSource"></div>
+      <div class="eyebrow">Client Information</div>
+      <h2>First, tell us a little about you.</h2>
+
+      <div class="grid">
+        <div class="field">
+          <label>First Name *</label>
+          <input name="firstName" required type="text">
+        </div>
+
+        <div class="field">
+          <label>Last Name *</label>
+          <input name="lastName" required type="text">
+        </div>
+
+        <div class="field">
+          <label>Email *</label>
+          <input name="email" required type="email">
+        </div>
+
+        <div class="field">
+          <label>Phone Number *</label>
+          <input name="phone" required type="tel">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Project Address *</label>
+        <input name="address" required type="text">
+      </div>
+
+      <div class="grid3">
+        <div class="field">
+          <label>City</label>
+          <input name="city" type="text">
+        </div>
+
+        <div class="field">
+          <label>State</label>
+          <input name="state" type="text">
+        </div>
+
+        <div class="field">
+          <label>ZIP Code</label>
+          <input name="zip" type="text">
+        </div>
+      </div>
+
+      <div class="subhead">How should we reach you?</div>
+      <div class="answers" data-group="preferredCommunication"></div>
+
+      <div class="subhead">How did you hear about Lake Hazel?</div>
+      <div class="answers" data-group="leadSource"></div>
     </section>
 
-    <section class="q"><div class="eyebrow">About Your Project</div><h2>What type of project are you planning?</h2><div class="answers" data-group="projectType"></div></section>
+    <section class="q">
+      <div class="eyebrow">About Your Project</div>
+      <h2>What type of project are you planning?</h2>
+      <div class="answers" data-group="projectType"></div>
+    </section>
 
-    <section class="q"><div class="eyebrow">About Your Project</div><h2>Which spaces are included?</h2><p class="helper">Choose as many as apply.</p><div class="answers" data-group="spaces"></div><div class="field" style="margin-top:22px"><label>Approximate square footage involved</label><input name="squareFootage" type="text" placeholder="Example: 1,200 sq. ft."></div><div class="subhead">What kind of property is this?</div><div class="answers" data-group="propertyStatus"></div></section>
+    <section class="q">
+      <div class="eyebrow">About Your Project</div>
+      <h2>Which spaces are included?</h2>
+      <p class="helper">Choose as many as apply.</p>
 
-    <section class="q"><div class="eyebrow">What Do You Need Help With?</div><h2>What would you like Lake Hazel to handle?</h2><p class="helper">Select everything you would like help with.</p><div class="answers" data-group="services"></div></section>
+      <div class="answers" data-group="spaces"></div>
 
-    <section class="q"><div class="eyebrow">Tell Us What You Want to Change</div><h2>What isn’t working about your current space?</h2><textarea name="currentProblems" placeholder="Tell us what feels frustrating, dated, awkward, unfinished, inefficient, or just not you."></textarea><div class="field" style="margin-top:22px"><label>What would you love your finished space to accomplish?</label><textarea name="desiredOutcome" placeholder="Describe how you want the space to look, feel, and function."></textarea></div></section>
+      <div class="field" style="margin-top:22px">
+        <label>Approximate square footage involved</label>
+        <input name="squareFootage" type="text" placeholder="Example: 1,200 sq. ft.">
+      </div>
 
-    <section class="q"><div class="eyebrow">Your Priorities</div><h2>What matters most?</h2><div class="field"><label>Your three biggest priorities for this project</label><textarea name="priorities" placeholder="Example: better storage, a warmer feeling, easier entertaining."></textarea></div><div class="field"><label>Are there existing items you definitely want to keep?</label><textarea name="keepItems"></textarea></div><div class="field"><label>Is there anything you absolutely do not want?</label><textarea name="avoidItems"></textarea></div></section>
+      <div class="subhead">What kind of property is this?</div>
+      <div class="answers" data-group="propertyStatus"></div>
+    </section>
 
-    <section class="q"><div class="eyebrow">Style + Inspiration</div><h2>How would you describe your style?</h2><p class="helper">Choose anything you’re drawn to. You do not need to know the “right” design term.</p><div class="answers" data-group="styles"></div></section>
+    <section class="q">
+      <div class="eyebrow">What Do You Need Help With?</div>
+      <h2>What would you like Lake Hazel to handle?</h2>
+      <p class="helper">Select everything you would like help with.</p>
+      <div class="answers" data-group="services"></div>
+    </section>
 
-    <section class="q"><div class="eyebrow">Style + Inspiration</div><h2>How do you want your home to feel?</h2><div class="answers" data-group="feelings"></div><div class="grid" style="margin-top:22px"><div class="field"><label>What colors are you naturally drawn to?</label><input name="colorsLike" type="text"></div><div class="field"><label>What colors do you dislike?</label><input name="colorsDislike" type="text"></div></div></section>
+    <section class="q">
+      <div class="eyebrow">Tell Us What You Want to Change</div>
+      <h2>What isn’t working about your current space?</h2>
 
-    <section class="q"><div class="eyebrow">Inspiration</div><h2>Show us what you love.</h2><div class="field"><label>Pinterest or inspiration board URL</label><input name="inspirationUrl" type="url" placeholder="https://www.pinterest.com/..."></div><p class="helper">A Pinterest board helps us quickly see the patterns, colors, materials, and details you’re naturally drawn to.</p><div class="subhead">Do you have inspiration images?</div><div class="answers" data-group="hasInspirationImages"></div></section>
+      <textarea
+        name="currentProblems"
+        placeholder="Tell us what feels frustrating, dated, awkward, unfinished, inefficient, or just not you."
+      ></textarea>
 
-    <section class="q"><div class="eyebrow">Upload Images + Files</div><h2>Send us anything that helps tell the story.</h2><p class="helper">Upload inspiration photos, Pinterest screenshots, current room photos, floor plans, builder drawings, or architectural plans.</p><div class="upload"><input id="lhqFiles" name="projectFiles" type="file" multiple accept="image/jpeg,image/png,image/webp,application/pdf"><div class="filelist" id="lhqFileList">Choose up to 10 JPG, PNG, WebP, or PDF files.</div></div></section>
+      <div class="field" style="margin-top:22px">
+        <label>What would you love your finished space to accomplish?</label>
+        <textarea
+          name="desiredOutcome"
+          placeholder="Describe how you want the space to look, feel, and function."
+        ></textarea>
+      </div>
+    </section>
 
-    <section class="q"><div class="eyebrow">Budget</div><h2>What is your anticipated project investment?</h2><p class="helper">This is the construction/furnishings/materials budget <strong>excluding professional design fees</strong>.</p><div class="answers" data-group="budget"></div><div class="subhead">What does that budget need to cover?</div><div class="answers" data-group="budgetCoverage"></div><div class="subhead">Have you established a separate budget for professional design services?</div><div class="answers" data-group="designBudget"></div></section>
+    <section class="q">
+      <div class="eyebrow">Your Priorities</div>
+      <h2>What matters most?</h2>
 
-    <section class="q"><div class="eyebrow">Timeline</div><h2>When would you ideally like to begin?</h2><div class="answers" data-group="idealStart"></div><div class="field" style="margin-top:22px"><label>Do you have a required completion date?</label><input name="completionDate" type="date"></div><div class="subhead">Is there an event driving the timeline?</div><div class="answers" data-group="timelineDriver"></div></section>
+      <div class="field">
+        <label>Your three biggest priorities for this project</label>
+        <textarea
+          name="priorities"
+          placeholder="Example: better storage, a warmer feeling, easier entertaining."
+        ></textarea>
+      </div>
 
-    <section class="q"><div class="eyebrow">Construction</div><h2>Where are you in the construction process?</h2><div class="subhead">Do you already have a contractor?</div><div class="answers" data-group="contractorStatus"></div><div class="field" style="margin-top:20px"><label>Contractor / Company Name</label><input name="contractorName" type="text"></div><div class="subhead">Has construction already started?</div><div class="answers" data-group="constructionStarted"></div><div class="subhead">Do architectural or construction drawings already exist?</div><div class="answers" data-group="drawingsExist"></div><div class="subhead">Will permits be required?</div><div class="answers" data-group="permits"></div></section>
+      <div class="field">
+        <label>Are there existing items you definitely want to keep?</label>
+        <textarea name="keepItems"></textarea>
+      </div>
 
-    <section class="q"><div class="eyebrow">Decision Making</div><h2>How will decisions get made?</h2><div class="field"><label>Who will be involved in design decisions? Names / relationship</label><textarea name="decisionMakers"></textarea></div><div class="field"><label>Who has final approval on project decisions?</label><input name="finalApprover" type="text"></div><div class="subhead">How would you describe your decision-making style?</div><div class="answers" data-group="decisionStyle"></div></section>
+      <div class="field">
+        <label>Is there anything you absolutely do not want?</label>
+        <textarea name="avoidItems"></textarea>
+      </div>
+    </section>
 
-    <section class="q"><div class="eyebrow">Working Together</div><h2>What are you primarily looking for from a designer?</h2><div class="answers" data-group="designerGoals"></div><div class="subhead">How involved would you like to be?</div><div class="answers" data-group="involvement"></div></section>
+    <section class="q">
+      <div class="eyebrow">Style + Inspiration</div>
+      <h2>How would you describe your style?</h2>
+      <p class="helper">Choose anything you’re drawn to. You do not need to know the “right” design term.</p>
+      <div class="answers" data-group="styles"></div>
+    </section>
 
-    <section class="q"><div class="eyebrow">Working Together</div><h2>Have you worked with an interior designer before?</h2><div class="answers" data-group="workedWithDesigner"></div><div class="field" style="margin-top:22px"><label>If yes, what did you enjoy or wish had been different?</label><textarea name="pastDesignerExperience"></textarea></div></section>
+    <section class="q">
+      <div class="eyebrow">Style + Inspiration</div>
+      <h2>How do you want your home to feel?</h2>
 
-    <section class="q"><div class="eyebrow">Final Questions</div><h2>What would make you consider this project a huge success?</h2><textarea name="successDefinition" placeholder="What would make you say, ‘Yes — this was absolutely worth doing’?"></textarea><div class="field" style="margin-top:22px"><label>Is there anything else you want us to know about your home, family, lifestyle, or project?</label><textarea name="additionalNotes"></textarea></div><div class="subhead">Are you ready to move forward if the project and design investment are a good fit?</div><div class="answers" data-group="readiness"></div></section>
+      <div class="answers" data-group="feelings"></div>
 
-    <div class="nav"><button type="button" class="secondary hidden" id="lhqBack">Back</button><button type="button" class="primary" id="lhqNext">Next Question</button><button type="submit" class="primary hidden" id="lhqSubmit">Send Questionnaire</button></div>
+      <div class="grid" style="margin-top:22px">
+        <div class="field">
+          <label>What colors are you naturally drawn to?</label>
+          <input name="colorsLike" type="text">
+        </div>
+
+        <div class="field">
+          <label>What colors do you dislike?</label>
+          <input name="colorsDislike" type="text">
+        </div>
+      </div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Inspiration</div>
+      <h2>Show us what you love.</h2>
+
+      <div class="field">
+        <label>Pinterest or inspiration board URL</label>
+        <input name="inspirationUrl" type="url" placeholder="https://www.pinterest.com/...">
+      </div>
+
+      <p class="helper">
+        A Pinterest board helps us quickly see the patterns, colors, materials, and details you’re naturally drawn to.
+      </p>
+
+      <div class="subhead">Do you have inspiration images?</div>
+      <div class="answers" data-group="hasInspirationImages"></div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Upload Images + Files</div>
+      <h2>Send us anything that helps tell the story.</h2>
+
+      <p class="helper">
+        Upload inspiration photos, Pinterest screenshots, current room photos, floor plans, builder drawings, or architectural plans.
+      </p>
+
+      <div class="upload">
+        <input
+          id="lhqFiles"
+          name="projectFiles"
+          type="file"
+          multiple
+          accept="image/jpeg,image/png,image/webp,application/pdf"
+        >
+
+        <div class="filelist" id="lhqFileList">
+          Choose up to 10 JPG, PNG, WebP, or PDF files.
+        </div>
+      </div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Budget</div>
+      <h2>What is your anticipated project investment?</h2>
+
+      <p class="helper">
+        This is the construction/furnishings/materials budget
+        <strong>excluding professional design fees</strong>.
+      </p>
+
+      <div class="answers" data-group="budget"></div>
+
+      <div class="subhead">What does that budget need to cover?</div>
+      <div class="answers" data-group="budgetCoverage"></div>
+
+      <div class="subhead">
+        Have you established a separate budget for professional design services?
+      </div>
+      <div class="answers" data-group="designBudget"></div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Timeline</div>
+      <h2>When would you ideally like to begin?</h2>
+
+      <div class="answers" data-group="idealStart"></div>
+
+      <div class="field" style="margin-top:22px">
+        <label>Do you have a required completion date?</label>
+        <input name="completionDate" type="date">
+      </div>
+
+      <div class="subhead">Is there an event driving the timeline?</div>
+      <div class="answers" data-group="timelineDriver"></div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Construction</div>
+      <h2>Where are you in the construction process?</h2>
+
+      <div class="subhead">Do you already have a contractor?</div>
+      <div class="answers" data-group="contractorStatus"></div>
+
+      <div class="field" style="margin-top:20px">
+        <label>Contractor / Company Name</label>
+        <input name="contractorName" type="text">
+      </div>
+
+      <div class="subhead">Has construction already started?</div>
+      <div class="answers" data-group="constructionStarted"></div>
+
+      <div class="subhead">
+        Do architectural or construction drawings already exist?
+      </div>
+      <div class="answers" data-group="drawingsExist"></div>
+
+      <div class="subhead">Will permits be required?</div>
+      <div class="answers" data-group="permits"></div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Decision Making</div>
+      <h2>How will decisions get made?</h2>
+
+      <div class="field">
+        <label>Who will be involved in design decisions? Names / relationship</label>
+        <textarea name="decisionMakers"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Who has final approval on project decisions?</label>
+        <input name="finalApprover" type="text">
+      </div>
+
+      <div class="subhead">How would you describe your decision-making style?</div>
+      <div class="answers" data-group="decisionStyle"></div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Working Together</div>
+      <h2>What are you primarily looking for from a designer?</h2>
+
+      <div class="answers" data-group="designerGoals"></div>
+
+      <div class="subhead">How involved would you like to be?</div>
+      <div class="answers" data-group="involvement"></div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Working Together</div>
+      <h2>Have you worked with an interior designer before?</h2>
+
+      <div class="answers" data-group="workedWithDesigner"></div>
+
+      <div class="field" style="margin-top:22px">
+        <label>If yes, what did you enjoy or wish had been different?</label>
+        <textarea name="pastDesignerExperience"></textarea>
+      </div>
+    </section>
+
+    <section class="q">
+      <div class="eyebrow">Final Questions</div>
+      <h2>What would make you consider this project a huge success?</h2>
+
+      <textarea
+        name="successDefinition"
+        placeholder="What would make you say, ‘Yes — this was absolutely worth doing’?"
+      ></textarea>
+
+      <div class="field" style="margin-top:22px">
+        <label>
+          Is there anything else you want us to know about your home, family, lifestyle, or project?
+        </label>
+        <textarea name="additionalNotes"></textarea>
+      </div>
+
+      <div class="subhead">
+        Are you ready to move forward if the project and design investment are a good fit?
+      </div>
+      <div class="answers" data-group="readiness"></div>
+    </section>
+
+    <div class="nav">
+      <button type="button" class="secondary hidden" id="lhqBack">Back</button>
+      <button type="button" class="primary" id="lhqNext">Next Question</button>
+      <button type="submit" class="primary hidden" id="lhqSubmit">Send Questionnaire</button>
+    </div>
+
     <div id="lhqStatus" class="status" role="status"></div>
   </form>
 </div>
+
 <script>
 (function(){
   var ENDPOINT='https://client-project-questionnaire.vercel.app/api/client-intake';
-  var form=document.getElementById('lhqForm'), qs=[].slice.call(form.querySelectorAll('.q'));
-  var next=document.getElementById('lhqNext'),back=document.getElementById('lhqBack'),submit=document.getElementById('lhqSubmit'),progress=document.getElementById('lhqProgress'),count=document.getElementById('lhqCount'),status=document.getElementById('lhqStatus');
+
+  var form=document.getElementById('lhqForm');
+  var qs=[].slice.call(form.querySelectorAll('.q'));
+  var next=document.getElementById('lhqNext');
+  var back=document.getElementById('lhqBack');
+  var submit=document.getElementById('lhqSubmit');
+  var progress=document.getElementById('lhqProgress');
+  var count=document.getElementById('lhqCount');
+  var status=document.getElementById('lhqStatus');
   var current=0;
+
   var groups={
-    preferredCommunication:{type:'radio',items:['Email','Text','Phone']},
-    leadSource:{type:'radio',items:['Google','Instagram','Facebook','Referral','Contractor','Previous Client','Networking / Event','Other']},
-    projectType:{type:'radio',required:true,items:['New Construction','Whole Home Remodel','Kitchen Remodel','Bathroom Remodel','Basement','Addition','Furnishing / Decorating','Interior Finish Selections','Paint / Color Consultation','Space Planning / Floor Plans','Construction Drawings','Cabinetry Design','Commercial','Other']},
-    spaces:{type:'checkbox',items:['Kitchen',"Butler's Pantry",'Living Room','Great Room','Dining Room','Entry','Primary Bedroom','Primary Bathroom','Secondary Bedrooms','Secondary Bathrooms','Powder Bathroom','Laundry Room','Mudroom','Home Office','Basement','Theater','Gym','Exterior','Commercial Space','Whole Home','Other']},
-    propertyStatus:{type:'radio',items:['An existing home','A home under construction',"A home you're purchasing",'A commercial property','Land / new construction not yet started']},
-    services:{type:'checkbox',items:['Initial Site Scan / Existing Conditions','Design Consultation','Space Planning','Floor Plans','Furniture Layout','Kitchen Design','Bathroom Design','Cabinetry Design','Built-ins','Interior Architecture','Finish Selections','Flooring','Tile','Countertops','Plumbing Fixtures','Lighting','Paint Colors','Hardware','Appliances','Furniture','Window Treatments','Art & Accessories','Procurement / Purchasing','3D Renderings','Permit Drawings','Construction Documents','Contractor Coordination','Contractor Meetings','Site Visits','Project Management','Installation & Styling','Other']},
-    styles:{type:'checkbox',items:['Modern','Contemporary','Transitional','Traditional','Organic Modern','Modern European','Scandinavian','Mid-Century Modern','Minimalist','Industrial','Rustic','Mountain Modern','Coastal','Eclectic','Luxury',"I'm not sure — help me figure it out"]},
-    feelings:{type:'checkbox',items:['Warm','Calm','Cozy','Sophisticated','Dramatic','Light + Airy','Moody','Minimal','Collected','Organic','Luxurious','Family Friendly','Entertaining Focused','Timeless','Bold']},
-    hasInspirationImages:{type:'radio',items:['Yes','No','I have some but need to gather them']},
-    budget:{type:'radio',items:['Under $25,000','$25,000–$50,000','$50,000–$100,000','$100,000–$250,000','$250,000–$500,000','$500,000+',"I'm not sure yet"]},
-    budgetCoverage:{type:'radio',items:['Construction only','Furnishings only','Construction + furnishings','Finish materials','Complete project','Not sure yet']},
-    designBudget:{type:'radio',items:['Yes','Not yet',"I'd like guidance"]},
-    idealStart:{type:'radio',items:['ASAP','Within 30 days','1–3 months','3–6 months','6–12 months','More than a year','Just researching right now']},
-    timelineDriver:{type:'radio',items:['Moving','Baby','Wedding','Holiday','Home sale','Construction schedule','Other','No']},
-    contractorStatus:{type:'radio',items:['Yes','No','Currently interviewing','I would like contractor recommendations']},
-    constructionStarted:{type:'radio',items:['Yes','No']},
-    drawingsExist:{type:'radio',items:['Yes','No','Some drawings exist','Not sure']},
-    permits:{type:'radio',items:['Yes','No','Not sure']},
-    decisionStyle:{type:'radio',items:['I know exactly what I like','I like a few curated options','I need guidance narrowing things down','I want my designer to lead','I tend to change my mind',"We're still figuring this out"]},
-    designerGoals:{type:'checkbox',items:['A professional design vision','Help making selections','Help avoiding expensive mistakes','Drawings and documentation','Help communicating with contractors','Someone to manage the entire design process','Furniture and styling','A combination of everything']},
-    involvement:{type:'radio',items:['Very involved — I love design','Collaborative','Give me curated options','Mostly take it off my plate','I want full-service management']},
-    workedWithDesigner:{type:'radio',items:['Yes','No']},
-    readiness:{type:'radio',items:['Yes','Probably — I have a few questions',"I'm currently comparing designers","I'm researching for a future project"]}
+    preferredCommunication:{
+      type:'radio',
+      items:['Email','Text','Phone']
+    },
+    leadSource:{
+      type:'radio',
+      items:['Google','Instagram','Facebook','Referral','Contractor','Previous Client','Networking / Event','Other']
+    },
+    projectType:{
+      type:'radio',
+      required:true,
+      items:[
+        'New Construction',
+        'Whole Home Remodel',
+        'Kitchen Remodel',
+        'Bathroom Remodel',
+        'Basement',
+        'Addition',
+        'Furnishing / Decorating',
+        'Interior Finish Selections',
+        'Paint / Color Consultation',
+        'Space Planning / Floor Plans',
+        'Construction Drawings',
+        'Cabinetry Design',
+        'Commercial',
+        'Other'
+      ]
+    },
+    spaces:{
+      type:'checkbox',
+      items:[
+        'Kitchen',
+        "Butler's Pantry",
+        'Living Room',
+        'Great Room',
+        'Dining Room',
+        'Entry',
+        'Primary Bedroom',
+        'Primary Bathroom',
+        'Secondary Bedrooms',
+        'Secondary Bathrooms',
+        'Powder Bathroom',
+        'Laundry Room',
+        'Mudroom',
+        'Home Office',
+        'Basement',
+        'Theater',
+        'Gym',
+        'Exterior',
+        'Commercial Space',
+        'Whole Home',
+        'Other'
+      ]
+    },
+    propertyStatus:{
+      type:'radio',
+      items:[
+        'An existing home',
+        'A home under construction',
+        "A home you're purchasing",
+        'A commercial property',
+        'Land / new construction not yet started'
+      ]
+    },
+    services:{
+      type:'checkbox',
+      items:[
+        'Initial Site Scan / Existing Conditions',
+        'Design Consultation',
+        'Space Planning',
+        'Floor Plans',
+        'Furniture Layout',
+        'Kitchen Design',
+        'Bathroom Design',
+        'Cabinetry Design',
+        'Built-ins',
+        'Interior Architecture',
+        'Finish Selections',
+        'Flooring',
+        'Tile',
+        'Countertops',
+        'Plumbing Fixtures',
+        'Lighting',
+        'Paint Colors',
+        'Hardware',
+        'Appliances',
+        'Furniture',
+        'Window Treatments',
+        'Art & Accessories',
+        'Procurement / Purchasing',
+        '3D Renderings',
+        'Permit Drawings',
+        'Construction Documents',
+        'Contractor Coordination',
+        'Contractor Meetings',
+        'Site Visits',
+        'Project Management',
+        'Installation & Styling',
+        'Other'
+      ]
+    },
+    styles:{
+      type:'checkbox',
+      items:[
+        'Modern',
+        'Contemporary',
+        'Transitional',
+        'Traditional',
+        'Organic Modern',
+        'Modern European',
+        'Scandinavian',
+        'Mid-Century Modern',
+        'Minimalist',
+        'Industrial',
+        'Rustic',
+        'Mountain Modern',
+        'Coastal',
+        'Eclectic',
+        'Luxury',
+        "I'm not sure — help me figure it out"
+      ]
+    },
+    feelings:{
+      type:'checkbox',
+      items:[
+        'Warm',
+        'Calm',
+        'Cozy',
+        'Sophisticated',
+        'Dramatic',
+        'Light + Airy',
+        'Moody',
+        'Minimal',
+        'Collected',
+        'Organic',
+        'Luxurious',
+        'Family Friendly',
+        'Entertaining Focused',
+        'Timeless',
+        'Bold'
+      ]
+    },
+    hasInspirationImages:{
+      type:'radio',
+      items:['Yes','No','I have some but need to gather them']
+    },
+    budget:{
+      type:'radio',
+      items:[
+        'Under $25,000',
+        '$25,000–$50,000',
+        '$50,000–$100,000',
+        '$100,000–$250,000',
+        '$250,000–$500,000',
+        '$500,000+',
+        "I'm not sure yet"
+      ]
+    },
+    budgetCoverage:{
+      type:'radio',
+      items:[
+        'Construction only',
+        'Furnishings only',
+        'Construction + furnishings',
+        'Finish materials',
+        'Complete project',
+        'Not sure yet'
+      ]
+    },
+    designBudget:{
+      type:'radio',
+      items:['Yes','Not yet',"I'd like guidance"]
+    },
+    idealStart:{
+      type:'radio',
+      items:[
+        'ASAP',
+        'Within 30 days',
+        '1–3 months',
+        '3–6 months',
+        '6–12 months',
+        'More than a year',
+        'Just researching right now'
+      ]
+    },
+    timelineDriver:{
+      type:'radio',
+      items:[
+        'Moving',
+        'Baby',
+        'Wedding',
+        'Holiday',
+        'Home sale',
+        'Construction schedule',
+        'Other',
+        'No'
+      ]
+    },
+    contractorStatus:{
+      type:'radio',
+      items:[
+        'Yes',
+        'No',
+        'Currently interviewing',
+        'I would like contractor recommendations'
+      ]
+    },
+    constructionStarted:{
+      type:'radio',
+      items:['Yes','No']
+    },
+    drawingsExist:{
+      type:'radio',
+      items:['Yes','No','Some drawings exist','Not sure']
+    },
+    permits:{
+      type:'radio',
+      items:['Yes','No','Not sure']
+    },
+    decisionStyle:{
+      type:'radio',
+      items:[
+        'I know exactly what I like',
+        'I like a few curated options',
+        'I need guidance narrowing things down',
+        'I want my designer to lead',
+        'I tend to change my mind',
+        "We're still figuring this out"
+      ]
+    },
+    designerGoals:{
+      type:'checkbox',
+      items:[
+        'A professional design vision',
+        'Help making selections',
+        'Help avoiding expensive mistakes',
+        'Drawings and documentation',
+        'Help communicating with contractors',
+        'Someone to manage the entire design process',
+        'Furniture and styling',
+        'A combination of everything'
+      ]
+    },
+    involvement:{
+      type:'radio',
+      items:[
+        'Very involved — I love design',
+        'Collaborative',
+        'Give me curated options',
+        'Mostly take it off my plate',
+        'I want full-service management'
+      ]
+    },
+    workedWithDesigner:{
+      type:'radio',
+      items:['Yes','No']
+    },
+    readiness:{
+      type:'radio',
+      items:[
+        'Yes',
+        'Probably — I have a few questions',
+        "I'm currently comparing designers",
+        "I'm researching for a future project"
+      ]
+    }
   };
-  Object.keys(groups).forEach(function(name){var host=form.querySelector('[data-group="'+name+'"]');if(!host)return;groups[name].items.forEach(function(v){var label=document.createElement('label');label.className='choice';var input=document.createElement('input');input.type=groups[name].type;input.name=name;input.value=v;var span=document.createElement('span');span.textContent=v;label.appendChild(input);label.appendChild(span);host.appendChild(label);input.addEventListener('change',function(){if(input.type==='radio')host.querySelectorAll('.choice').forEach(function(x){x.classList.remove('selected')});label.classList.toggle('selected',input.checked);});});});
-  function show(){qs.forEach(function(q,i){q.classList.toggle('active',i===current)});progress.style.width=(((current+1)/qs.length)*100)+'%';count.textContent=(current+1)+' of '+qs.length;back.classList.toggle('hidden',current===0);next.classList.toggle('hidden',current===qs.length-1);submit.classList.toggle('hidden',current!==qs.length-1);var top=document.getElementById('lhq').getBoundingClientRect().top+window.pageYOffset-25;window.scrollTo({top:top,behavior:'smooth'});}
-  function validateStep(index){var step=qs[index],req=[].slice.call(step.querySelectorAll('[required]'));for(var i=0;i<req.length;i++){if(!req[i].checkValidity()){req[i].reportValidity();req[i].focus();return false;}}if(step.querySelector('[data-group="projectType"]')&&!form.querySelector('input[name="projectType"]:checked')){alert('Please choose a project type.');return false;}return true;}
-  next.addEventListener('click',function(){if(!validateStep(current))return;if(current<qs.length-1){current++;show();}});back.addEventListener('click',function(){if(current>0){current--;show();}});
-  var fileInput=document.getElementById('lhqFiles'),fileList=document.getElementById('lhqFileList');fileInput.addEventListener('change',function(){var files=[].slice.call(fileInput.files||[]);fileList.textContent=files.length?files.length+' file'+(files.length===1?'':'s')+' selected: '+files.map(function(f){return f.name}).join(', '):'Choose up to 10 JPG, PNG, WebP, or PDF files.';});
-  function asAttachment(file){return new Promise(function(resolve,reject){if(file.type==='application/pdf'){var r=new FileReader();r.onerror=reject;r.onload=function(){resolve({name:file.name,type:file.type,data:r.result.split(',')[1]})};r.readAsDataURL(file);return;}var reader=new FileReader();reader.onerror=reject;reader.onload=function(){var img=new Image();img.onerror=reject;img.onload=function(){var max=1600,scale=Math.min(1,max/Math.max(img.width,img.height)),w=Math.round(img.width*scale),h=Math.round(img.height*scale),canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);resolve({name:file.name.replace(/\.[^.]+$/, '')+'.jpg',type:'image/jpeg',data:canvas.toDataURL('image/jpeg',.76).split(',')[1]});};img.src=reader.result;};reader.readAsDataURL(file);});}
-  function validateAll(){for(var i=0;i<qs.length;i++){if(!validateStep(i)){current=i;show();return false;}}return true;}
-  form.addEventListener('submit',async function(e){e.preventDefault();if(!validateAll())return;current=qs.length-1;show();submit.disabled=true;submit.textContent='Sending…';status.className='status';status.textContent='';var fd=new FormData(form),payload={};fd.forEach(function(v,k){if(k==='projectFiles')return;if(payload[k])payload[k]=Array.isArray(payload[k])?payload[k].concat([v]):[payload[k],v];else payload[k]=v;});try{var files=[].slice.call(fileInput.files||[]).slice(0,10);payload.projectFiles=[];var total=0;for(var i=0;i<files.length;i++){var a=await asAttachment(files[i]);total+=Math.ceil(a.data.length*0.75);if(total>3200000)throw new Error('Files are too large. Please upload fewer files or smaller PDFs.');payload.projectFiles.push(a);}var res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}),data=await res.json();if(!res.ok)throw new Error(data.error||'Submission failed');status.className='status ok';status.textContent='Thank you — your project questionnaire has been received. Lake Hazel Design will review everything and follow up with next steps.';form.reset();form.querySelectorAll('.choice').forEach(function(x){x.classList.remove('selected')});fileList.textContent='Choose up to 10 JPG, PNG, WebP, or PDF files.';}catch(err){console.error(err);status.className='status err';status.textContent=err.message==='Files are too large. Please upload fewer files or smaller PDFs.'?err.message:'We could not send your questionnaire. Please try again or contact Lake Hazel Design directly.';}finally{submit.disabled=false;submit.textContent='Send Questionnaire';}});
+
+  Object.keys(groups).forEach(function(name){
+    var host=form.querySelector('[data-group="'+name+'"]');
+    if(!host) return;
+
+    groups[name].items.forEach(function(value){
+      var label=document.createElement('label');
+      label.className='choice';
+
+      var input=document.createElement('input');
+      input.type=groups[name].type;
+      input.name=name;
+      input.value=value;
+
+      var span=document.createElement('span');
+      span.textContent=value;
+
+      label.appendChild(input);
+      label.appendChild(span);
+      host.appendChild(label);
+
+      input.addEventListener('change',function(){
+        if(input.type==='radio'){
+          host.querySelectorAll('.choice').forEach(function(item){
+            item.classList.remove('selected');
+          });
+        }
+
+        label.classList.toggle('selected',input.checked);
+      });
+    });
+  });
+
+  function show(){
+    qs.forEach(function(question,index){
+      question.classList.toggle('active',index===current);
+    });
+
+    progress.style.width=(((current+1)/qs.length)*100)+'%';
+    count.textContent=(current+1)+' of '+qs.length;
+    back.classList.toggle('hidden',current===0);
+    next.classList.toggle('hidden',current===qs.length-1);
+    submit.classList.toggle('hidden',current!==qs.length-1);
+
+    var top=document.getElementById('lhq').getBoundingClientRect().top+window.pageYOffset-25;
+    window.scrollTo({
+      top:top,
+      behavior:'smooth'
+    });
+  }
+
+  function validateStep(index){
+    var step=qs[index];
+    var requiredFields=[].slice.call(step.querySelectorAll('[required]'));
+
+    for(var i=0;i<requiredFields.length;i++){
+      if(!requiredFields[i].checkValidity()){
+        requiredFields[i].reportValidity();
+        requiredFields[i].focus();
+        return false;
+      }
+    }
+
+    if(
+      step.querySelector('[data-group="projectType"]') &&
+      !form.querySelector('input[name="projectType"]:checked')
+    ){
+      alert('Please choose a project type.');
+      return false;
+    }
+
+    return true;
+  }
+
+  next.addEventListener('click',function(){
+    if(!validateStep(current)) return;
+
+    if(current<qs.length-1){
+      current++;
+      show();
+    }
+  });
+
+  back.addEventListener('click',function(){
+    if(current>0){
+      current--;
+      show();
+    }
+  });
+
+  var fileInput=document.getElementById('lhqFiles');
+  var fileList=document.getElementById('lhqFileList');
+
+  fileInput.addEventListener('change',function(){
+    var files=[].slice.call(fileInput.files||[]);
+
+    fileList.textContent=files.length
+      ? files.length+' file'+(files.length===1?'':'s')+' selected: '+files.map(function(file){
+          return file.name;
+        }).join(', ')
+      : 'Choose up to 10 JPG, PNG, WebP, or PDF files.';
+  });
+
+  function asAttachment(file){
+    return new Promise(function(resolve,reject){
+      if(file.type==='application/pdf'){
+        var pdfReader=new FileReader();
+
+        pdfReader.onerror=reject;
+        pdfReader.onload=function(){
+          resolve({
+            name:file.name,
+            type:file.type,
+            data:pdfReader.result.split(',')[1]
+          });
+        };
+
+        pdfReader.readAsDataURL(file);
+        return;
+      }
+
+      var reader=new FileReader();
+
+      reader.onerror=reject;
+      reader.onload=function(){
+        var image=new Image();
+
+        image.onerror=reject;
+        image.onload=function(){
+          var max=1600;
+          var scale=Math.min(1,max/Math.max(image.width,image.height));
+          var width=Math.round(image.width*scale);
+          var height=Math.round(image.height*scale);
+          var canvas=document.createElement('canvas');
+
+          canvas.width=width;
+          canvas.height=height;
+          canvas.getContext('2d').drawImage(image,0,0,width,height);
+
+          resolve({
+            name:file.name.replace(/\.[^.]+$/,'')+'.jpg',
+            type:'image/jpeg',
+            data:canvas.toDataURL('image/jpeg',.76).split(',')[1]
+          });
+        };
+
+        image.src=reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function validateAll(){
+    for(var i=0;i<qs.length;i++){
+      if(!validateStep(i)){
+        current=i;
+        show();
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  form.addEventListener('submit',async function(event){
+    event.preventDefault();
+
+    if(!validateAll()) return;
+
+    current=qs.length-1;
+    show();
+
+    submit.disabled=true;
+    submit.textContent='Sending…';
+    status.className='status';
+    status.textContent='';
+
+    var formData=new FormData(form);
+    var payload={};
+
+    formData.forEach(function(value,key){
+      if(key==='projectFiles') return;
+
+      if(payload[key]){
+        payload[key]=Array.isArray(payload[key])
+          ? payload[key].concat([value])
+          : [payload[key],value];
+      }else{
+        payload[key]=value;
+      }
+    });
+
+    try{
+      var files=[].slice.call(fileInput.files||[]).slice(0,10);
+      payload.projectFiles=[];
+      var total=0;
+
+      for(var i=0;i<files.length;i++){
+        var attachment=await asAttachment(files[i]);
+        total+=Math.ceil(attachment.data.length*0.75);
+
+        if(total>3200000){
+          throw new Error(
+            'Files are too large. Please upload fewer files or smaller PDFs.'
+          );
+        }
+
+        payload.projectFiles.push(attachment);
+      }
+
+      var response=await fetch(ENDPOINT,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(payload)
+      });
+
+      var data=await response.json();
+
+      if(!response.ok){
+        throw new Error(data.error||'Submission failed');
+      }
+
+      status.className='status ok';
+      status.textContent='Thank you — your project questionnaire has been received. Lake Hazel Design will review everything and follow up with next steps.';
+
+      form.reset();
+
+      form.querySelectorAll('.choice').forEach(function(choice){
+        choice.classList.remove('selected');
+      });
+
+      fileList.textContent='Choose up to 10 JPG, PNG, WebP, or PDF files.';
+    }catch(error){
+      console.error(error);
+      status.className='status err';
+
+      status.textContent=
+        error.message==='Files are too large. Please upload fewer files or smaller PDFs.'
+          ? error.message
+          : 'We could not send your questionnaire. Please try again or contact Lake Hazel Design directly.';
+    }finally{
+      submit.disabled=false;
+      submit.textContent='Send Questionnaire';
+    }
+  });
+
   show();
 })();
 </script>
